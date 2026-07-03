@@ -45,6 +45,7 @@ export const DEFAULT_SCORE_CONFIG: ScoreConfig = {
 
 /** 2nd-half average over 1st-half average; halves split at floor(n/2). */
 export function halvesRatio(values: number[]): number {
+  if (values.length < 2) return 1
   const mid = Math.floor(values.length / 2)
   const avg = (xs: number[]) => xs.reduce((s, v) => s + v, 0) / xs.length
   const a = avg(values.slice(0, mid))
