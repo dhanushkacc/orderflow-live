@@ -116,7 +116,7 @@ function onBaseCandleClosed(candle: FootprintCandle): void {
 function onTfCandleClosed(candle: FootprintCandle): void {
   if (!detector) return
   const divergence = detector.push(candle)
-  if (!session) return
+  if (!session || useSessionStore.getState().phase !== 'armed') return
   const update = session.onCandleClose(candle, divergence)
   const prev = useSessionStore.getState()
   useSessionStore.setState({
@@ -152,6 +152,12 @@ export function arm(params: ArmParams): void {
 export function disarm(): void {
   session = null
   useSessionStore.getState().reset()
+}
+
+/** Freeze the session and open the labeling flow (candles stop feeding it). */
+export function endSession(): void {
+  if (!session) return
+  useSessionStore.setState({ phase: 'labeling' })
 }
 
 export function activeSession(): AnalysisSession | null {

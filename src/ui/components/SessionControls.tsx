@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useMarketStore, useSessionStore, useDraftStore } from '../../state/stores'
-import { arm, disarm } from '../../state/controller'
+import { arm, disarm, endSession } from '../../state/controller'
 import type { Direction } from '../../core/types'
 import { fmtNum } from '../format'
 
@@ -23,10 +23,16 @@ export default function SessionControls() {
           {levelKind} @ <span className="font-mono">{fmtNum(level, 2)}</span> · trend {trendArmed}
         </span>
         <button
-          onClick={() => disarm()}
-          className="ml-auto px-3 py-1 rounded border border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+          onClick={() => endSession()}
+          className="ml-auto px-3 py-1 rounded font-semibold border border-green-700 text-green-400 hover:bg-green-950/40"
         >
-          Disarm
+          End &amp; label
+        </button>
+        <button
+          onClick={() => disarm()}
+          className="px-3 py-1 rounded border border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+        >
+          Discard
         </button>
       </div>
     )

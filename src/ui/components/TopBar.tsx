@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { useMarketStore } from '../../state/stores'
+import { useEffect, useRef, useState } from 'react'
+import { useMarketStore, useRecordsStore } from '../../state/stores'
 import { startMarket, setTimeframe } from '../../state/controller'
+import { downloadDataset, importDataset, recordCount } from '../../storage/dataset'
 import type { Timeframe } from '../../core/types'
 import { fmtNum } from '../format'
 
@@ -21,6 +22,13 @@ export default function TopBar() {
   const lastPrice = useMarketStore((s) => s.lastPrice)
   const setSymbol = useMarketStore((s) => s.setSymbol)
   const [custom, setCustom] = useState('')
+  const records = useRecordsStore((s) => s.count)
+  const setRecords = useRecordsStore((s) => s.setCount)
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setRecords(recordCount())
+  }, [setRecords])
 
   const changeSymbol = (s: string) => {
     setSymbol(s.toUpperCase())
@@ -77,6 +85,42 @@ export default function TopBar() {
       </div>
 
       <div className="ml-auto flex items-center gap-4">
+        <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+          <span className="px-2 py-0.5 rounded-full border border-neutral-700">{records} records</span>
+          <button
+            onClick={() => downloadDataset()}
+            className="px-2 py-0.5 rounded border border-neutral-800 hover:bg-neutral-800"
+            title="download dataset.json"
+          >
+            export
+          </button>
+          <button
+            onClick={() => fileRef.current?.click()}
+            className="px-2 py-0.5 rounded border border-neutral-800 hover:bg-neutral-800"
+            title="import dataset.json"
+          >
+            import
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0]
+              if (!f) return
+              void f.text().then((txt) => {
+                try {
+                  const ds = importDataset(txt)
+                  setRecords(ds.records.length)
+                } catch (err) {
+                  alert(`Import failed: ${err instanceof Error ? err.message : String(err)}`)
+                }
+              })
+              e.target.value = ''
+            }}
+          />
+        </div>
         {lastPrice != null && (
           <span className="font-mono text-lg text-neutral-100">{fmtNum(lastPrice, 2)}</span>
         )}

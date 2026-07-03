@@ -46,7 +46,7 @@ export const useMarketStore = create<MarketState>((set) => ({
 }))
 
 export interface SessionView {
-  phase: 'idle' | 'armed'
+  phase: 'idle' | 'armed' | 'labeling'
   level: number | null
   levelKind: 'support' | 'resistance' | null
   attack: Direction | null
@@ -89,4 +89,14 @@ interface DraftState {
 export const useDraftStore = create<DraftState>((set) => ({
   level: '',
   setLevel: (level) => set({ level }),
+}))
+
+interface RecordsState {
+  count: number
+  setCount: (n: number) => void
+}
+
+export const useRecordsStore = create<RecordsState>((set) => ({
+  count: 0,
+  setCount: (count) => set({ count }),
 }))

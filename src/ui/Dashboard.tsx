@@ -6,6 +6,7 @@ import ScoreBreakdown from './components/ScoreBreakdown'
 import Commentary from './components/Commentary'
 import DominancePanel from './components/DominancePanel'
 import SessionControls from './components/SessionControls'
+import LabelOutcomeModal from './components/LabelOutcomeModal'
 import { startMarket, stopMarket } from '../state/controller'
 
 export default function Dashboard() {
@@ -33,6 +34,7 @@ export default function Dashboard() {
       <div className="px-3 pb-3">
         <SessionControls />
       </div>
+      <LabelOutcomeModal />
     </div>
   )
 }
