@@ -1,0 +1,1359 @@
+{
+  "schema": {
+    "scenario": [
+      "break_up",
+      "break_down",
+      "break_up_and_retest_success",
+      "break_down_and_retest_success",
+      "break_up_and_retest_fail",
+      "break_down_and_retest_fail",
+      "touch_and_reject_up",
+      "touch_and_reject_down"
+    ],
+    "trend": [
+      "up",
+      "down"
+    ],
+    "win_trade_direction": [
+      "buy",
+      "sell"
+    ],
+    "cvd_divergence": [
+      true,
+      false
+    ],
+    "candle_code": {
+      "format": "[absorption][price_action][cvd_price_action]",
+      "chars": {
+        "0": "null / none",
+        "A": "above",
+        "B": "below"
+      },
+      "absorption": [
+        "above",
+        "below"
+      ],
+      "price_action": [
+        "above",
+        "below",
+        null
+      ],
+      "cvd_price_action": [
+        "above",
+        "below",
+        null
+      ]
+    }
+  },
+  "records": [
+    {
+      "record_id": 1,
+      "scenario": "touch_and_reject_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 1760,
+          "delta": -103,
+          "max_delta": 23,
+          "min_delta": -44
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1520,
+          "delta": 28,
+          "max_delta": 27,
+          "min_delta": -22
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1420,
+          "delta": 75,
+          "max_delta": 67,
+          "min_delta": -21
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1860,
+          "delta": -270,
+          "max_delta": 56,
+          "min_delta": -85
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 3810,
+          "delta": -52,
+          "max_delta": 38,
+          "min_delta": -28
+        }
+      ]
+    },
+    {
+      "record_id": 2,
+      "scenario": "touch_and_reject_down",
+      "trend": "up",
+      "win_trade_direction": "sell",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2090,
+          "delta": -23,
+          "max_delta": 61,
+          "min_delta": -64
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 1910,
+          "delta": -140,
+          "max_delta": 55,
+          "min_delta": -58
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 2240,
+          "delta": 64,
+          "max_delta": 55,
+          "min_delta": -50
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 1240,
+          "delta": -65,
+          "max_delta": 20,
+          "min_delta": -56
+        }
+      ]
+    },
+    {
+      "record_id": 3,
+      "scenario": "touch_and_reject_down",
+      "trend": "up",
+      "win_trade_direction": "sell",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1820,
+          "delta": 114,
+          "max_delta": 65,
+          "min_delta": -84
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1990,
+          "delta": 143,
+          "max_delta": 57,
+          "min_delta": -22
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2750,
+          "delta": -247,
+          "max_delta": 10,
+          "min_delta": -144
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "below",
+          "volume": 1680,
+          "delta": 180,
+          "max_delta": 107,
+          "min_delta": -15
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 1650,
+          "delta": 38,
+          "max_delta": 49,
+          "min_delta": -49
+        }
+      ]
+    },
+    {
+      "record_id": 4,
+      "scenario": "touch_and_reject_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 3650,
+          "delta": 82,
+          "max_delta": 66,
+          "min_delta": -47
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2600,
+          "delta": -266,
+          "max_delta": 41,
+          "min_delta": -56
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1870,
+          "delta": 198,
+          "max_delta": 46,
+          "min_delta": -42
+        }
+      ]
+    },
+    {
+      "record_id": 5,
+      "scenario": "touch_and_reject_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 732,
+          "delta": 70,
+          "max_delta": 57,
+          "min_delta": -13
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 856,
+          "delta": -2,
+          "max_delta": 26,
+          "min_delta": -20
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 687,
+          "delta": 27,
+          "max_delta": 14,
+          "min_delta": -17
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 535,
+          "delta": -67,
+          "max_delta": 11,
+          "min_delta": -66
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1190,
+          "delta": 17,
+          "max_delta": 34,
+          "min_delta": -26
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1350,
+          "delta": 178,
+          "max_delta": 60,
+          "min_delta": 2
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1890,
+          "delta": -10,
+          "max_delta": 13,
+          "min_delta": -30
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2770,
+          "delta": -259,
+          "max_delta": 31,
+          "min_delta": -108
+        }
+      ]
+    },
+    {
+      "record_id": 6,
+      "scenario": "break_down",
+      "trend": "down",
+      "win_trade_direction": "sell",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "above",
+          "volume": 2820,
+          "delta": -116,
+          "max_delta": 47,
+          "min_delta": -36
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2470,
+          "delta": -202,
+          "max_delta": 15,
+          "min_delta": -68
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "below",
+          "volume": 3670,
+          "delta": -155,
+          "max_delta": 46,
+          "min_delta": -72
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 2850,
+          "delta": -153,
+          "max_delta": 100,
+          "min_delta": -92
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 3010,
+          "delta": 232,
+          "max_delta": 76,
+          "min_delta": -28
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "above",
+          "volume": 2720,
+          "delta": 50,
+          "max_delta": 69,
+          "min_delta": -27
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2510,
+          "delta": 66,
+          "max_delta": 55,
+          "min_delta": -26
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2260,
+          "delta": 47,
+          "max_delta": 45,
+          "min_delta": -33
+        },
+        {
+          "i": 9,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 2920,
+          "delta": 160,
+          "max_delta": 87,
+          "min_delta": -52
+        },
+        {
+          "i": 10,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2330,
+          "delta": 64,
+          "max_delta": 83,
+          "min_delta": -34
+        },
+        {
+          "i": 11,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2340,
+          "delta": 195,
+          "max_delta": 57,
+          "min_delta": -30
+        },
+        {
+          "i": 12,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2100,
+          "delta": -55,
+          "max_delta": 17,
+          "min_delta": -66
+        },
+        {
+          "i": 13,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1980,
+          "delta": -24,
+          "max_delta": 16,
+          "min_delta": -39
+        },
+        {
+          "i": 14,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2170,
+          "delta": -160,
+          "max_delta": 46,
+          "min_delta": -93
+        },
+        {
+          "i": 15,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1730,
+          "delta": -126,
+          "max_delta": 4,
+          "min_delta": -89
+        },
+        {
+          "i": 16,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1120,
+          "delta": -48,
+          "max_delta": 25,
+          "min_delta": -54
+        },
+        {
+          "i": 17,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 1670,
+          "delta": 148,
+          "max_delta": 51,
+          "min_delta": -9
+        },
+        {
+          "i": 18,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1840,
+          "delta": -141,
+          "max_delta": 25,
+          "min_delta": -100
+        }
+      ]
+    },
+    {
+      "record_id": 7,
+      "scenario": "break_down",
+      "trend": "down",
+      "win_trade_direction": "sell",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 4350,
+          "delta": 170,
+          "max_delta": 102,
+          "min_delta": -49
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 3840,
+          "delta": 276,
+          "max_delta": 60,
+          "min_delta": -37
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 3870,
+          "delta": -330,
+          "max_delta": 34,
+          "min_delta": -91
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": null,
+          "volume": 2610,
+          "delta": 45,
+          "max_delta": 36,
+          "min_delta": -35
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "above",
+          "volume": 3140,
+          "delta": 194,
+          "max_delta": 119,
+          "min_delta": -20
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 2500,
+          "delta": 500,
+          "max_delta": 127,
+          "min_delta": 1
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2790,
+          "delta": -53,
+          "max_delta": 69,
+          "min_delta": -41
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2790,
+          "delta": -273,
+          "max_delta": 4,
+          "min_delta": -85
+        },
+        {
+          "i": 9,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 3750,
+          "delta": 593,
+          "max_delta": 120,
+          "min_delta": -15
+        },
+        {
+          "i": 10,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 4060,
+          "delta": -354,
+          "max_delta": 50,
+          "min_delta": -83
+        },
+        {
+          "i": 11,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": "above",
+          "volume": 3600,
+          "delta": -101,
+          "max_delta": 90,
+          "min_delta": -106
+        },
+        {
+          "i": 12,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2910,
+          "delta": 154,
+          "max_delta": 67,
+          "min_delta": -19
+        },
+        {
+          "i": 13,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2830,
+          "delta": -77,
+          "max_delta": 46,
+          "min_delta": -33
+        },
+        {
+          "i": 14,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1730,
+          "delta": 72,
+          "max_delta": 66,
+          "min_delta": -30
+        },
+        {
+          "i": 15,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2850,
+          "delta": -242,
+          "max_delta": 30,
+          "min_delta": -22
+        },
+        {
+          "i": 16,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2220,
+          "delta": 129,
+          "max_delta": 51,
+          "min_delta": -14
+        }
+      ]
+    },
+    {
+      "record_id": 8,
+      "scenario": "touch_and_reject_down",
+      "trend": "up",
+      "win_trade_direction": "sell",
+      "cvd_divergence": false,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 12770,
+          "delta": 1405,
+          "max_delta": 164,
+          "min_delta": -179
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 13420,
+          "delta": -471,
+          "max_delta": 120,
+          "min_delta": -189
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "below",
+          "volume": 9440,
+          "delta": -695,
+          "max_delta": 121,
+          "min_delta": -137
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "below",
+          "volume": 5980,
+          "delta": -60,
+          "max_delta": 75,
+          "min_delta": -179
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 8770,
+          "delta": -381,
+          "max_delta": 41,
+          "min_delta": -102
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 5110,
+          "delta": 250,
+          "max_delta": 105,
+          "min_delta": -112
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 6440,
+          "delta": -207,
+          "max_delta": 49,
+          "min_delta": -160
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 7350,
+          "delta": -36,
+          "max_delta": 85,
+          "min_delta": -113
+        },
+        {
+          "i": 9,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 8560,
+          "delta": 124,
+          "max_delta": 54,
+          "min_delta": -90
+        },
+        {
+          "i": 10,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 6580,
+          "delta": -47,
+          "max_delta": 135,
+          "min_delta": -81
+        },
+        {
+          "i": 11,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": null,
+          "volume": 6820,
+          "delta": 652,
+          "max_delta": 124,
+          "min_delta": -89
+        },
+        {
+          "i": 12,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 7460,
+          "delta": -250,
+          "max_delta": 72,
+          "min_delta": -72
+        }
+      ]
+    },
+    {
+      "record_id": 9,
+      "scenario": "touch_and_reject_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2850,
+          "delta": -115,
+          "max_delta": 93,
+          "min_delta": -101
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 5550,
+          "delta": 101,
+          "max_delta": 59,
+          "min_delta": -50
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 4020,
+          "delta": -364,
+          "max_delta": 25,
+          "min_delta": -51
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 4320,
+          "delta": 137,
+          "max_delta": 77,
+          "min_delta": -38
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 6860,
+          "delta": 405,
+          "max_delta": 99,
+          "min_delta": -80
+        }
+      ]
+    },
+    {
+      "record_id": 10,
+      "scenario": "break_up_and_retest_success",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1570,
+          "delta": -335,
+          "max_delta": 1,
+          "min_delta": -59
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1770,
+          "delta": 119,
+          "max_delta": 34,
+          "min_delta": -28
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": "above",
+          "volume": 1570,
+          "delta": -129,
+          "max_delta": 4,
+          "min_delta": -45
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1980,
+          "delta": 161,
+          "max_delta": 88,
+          "min_delta": -43
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1330,
+          "delta": -170,
+          "max_delta": 23,
+          "min_delta": -50
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1450,
+          "delta": 48,
+          "max_delta": 29,
+          "min_delta": -9
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 1500,
+          "delta": -165,
+          "max_delta": 20,
+          "min_delta": -69
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1820,
+          "delta": 112,
+          "max_delta": 72,
+          "min_delta": -21
+        }
+      ]
+    },
+    {
+      "record_id": 11,
+      "scenario": "touch_and_reject_up",
+      "trend": "down",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 2120,
+          "delta": -1283,
+          "max_delta": 28,
+          "min_delta": -170
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2000,
+          "delta": 635,
+          "max_delta": 85,
+          "min_delta": -34
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 2120,
+          "delta": -252,
+          "max_delta": 49,
+          "min_delta": -90
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2780,
+          "delta": 330,
+          "max_delta": 61,
+          "min_delta": -40
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "above",
+          "cvd_price_action": null,
+          "volume": 2380,
+          "delta": -302,
+          "max_delta": 35,
+          "min_delta": -102
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 1930,
+          "delta": -162,
+          "max_delta": 81,
+          "min_delta": -52
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 2820,
+          "delta": 62,
+          "max_delta": 40,
+          "min_delta": -27
+        }
+      ]
+    },
+    {
+      "record_id": 12,
+      "scenario": "touch_and_reject_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": false,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2170,
+          "delta": -124,
+          "max_delta": 24,
+          "min_delta": -88
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 1640,
+          "delta": -148,
+          "max_delta": 23,
+          "min_delta": -51
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2170,
+          "delta": 239,
+          "max_delta": 58,
+          "min_delta": -21
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2360,
+          "delta": -30,
+          "max_delta": 65,
+          "min_delta": -54
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": null,
+          "volume": 2560,
+          "delta": -16,
+          "max_delta": 40,
+          "min_delta": -74
+        }
+      ]
+    },
+    {
+      "record_id": 13,
+      "scenario": "break_up",
+      "trend": "up",
+      "win_trade_direction": "buy",
+      "cvd_divergence": false,
+      "candles": [
+        {
+          "i": 1,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 3070,
+          "delta": -318,
+          "max_delta": 28,
+          "min_delta": -109
+        },
+        {
+          "i": 2,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2950,
+          "delta": 204,
+          "max_delta": 56,
+          "min_delta": -35
+        },
+        {
+          "i": 3,
+          "time": null,
+          "absorption": "above",
+          "price_action": "above",
+          "cvd_price_action": "above",
+          "volume": 2060,
+          "delta": 5,
+          "max_delta": 31,
+          "min_delta": -27
+        },
+        {
+          "i": 4,
+          "time": null,
+          "absorption": "below",
+          "price_action": "below",
+          "cvd_price_action": null,
+          "volume": 2700,
+          "delta": -297,
+          "max_delta": 33,
+          "min_delta": -100
+        },
+        {
+          "i": 5,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": null,
+          "volume": 2770,
+          "delta": 221,
+          "max_delta": 70,
+          "min_delta": -32
+        },
+        {
+          "i": 6,
+          "time": null,
+          "absorption": "above",
+          "price_action": "below",
+          "cvd_price_action": "below",
+          "volume": 2230,
+          "delta": -142,
+          "max_delta": 39,
+          "min_delta": -50
+        },
+        {
+          "i": 7,
+          "time": null,
+          "absorption": "below",
+          "price_action": null,
+          "cvd_price_action": "below",
+          "volume": 2050,
+          "delta": -50,
+          "max_delta": 41,
+          "min_delta": -44
+        },
+        {
+          "i": 8,
+          "time": null,
+          "absorption": "above",
+          "price_action": null,
+          "cvd_price_action": "above",
+          "volume": 3660,
+          "delta": -77,
+          "max_delta": 56,
+          "min_delta": -97
+        }
+      ]
+    },
+    {
+      "record_id": 14,
+      "scenario": "break_down_and_retest_fail",
+      "trend": "down",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        { "i": 1, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": "below", "volume": 3330, "delta": 745,   "max_delta": 161, "min_delta": -47 },
+        { "i": 2, "time": null, "absorption": "above", "price_action": "above", "cvd_price_action": "above", "volume": 4080, "delta": 380,   "max_delta": 120, "min_delta": -147 },
+        { "i": 3, "time": null, "absorption": "below", "price_action": "below", "cvd_price_action": "below", "volume": 2770, "delta": -1169, "max_delta": 46,  "min_delta": -258 },
+        { "i": 4, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": null,    "volume": 2330, "delta": -2332, "max_delta": 0,   "min_delta": -226 },
+        { "i": 5, "time": null, "absorption": "above", "price_action": null,    "cvd_price_action": "above", "volume": 2100, "delta": 445,   "max_delta": 121, "min_delta": -61 },
+        { "i": 6, "time": null, "absorption": "below", "price_action": "below", "cvd_price_action": null,    "volume": 2130, "delta": -445,  "max_delta": 48,  "min_delta": -141 },
+        { "i": 7, "time": null, "absorption": "below", "price_action": "above", "cvd_price_action": null,    "volume": 2070, "delta": -435,  "max_delta": 67,  "min_delta": -117 },
+        { "i": 8, "time": null, "absorption": "above", "price_action": null,    "cvd_price_action": "above", "volume": 2830, "delta": 665,   "max_delta": 252, "min_delta": -81 },
+        { "i": 9, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": "above", "volume": 1480, "delta": -258,  "max_delta": 47,  "min_delta": -102 }
+      ]
+    },
+    {
+      "record_id": 15,
+      "scenario": "break_down",
+      "trend": "down",
+      "win_trade_direction": "sell",
+      "cvd_divergence": false,
+      "candles": [
+        { "i": 1, "time": null, "absorption": "above", "price_action": null,    "cvd_price_action": null,    "volume": 3370, "delta": -3372, "max_delta": 0,   "min_delta": -314 },
+        { "i": 2, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": null,    "volume": 3510, "delta": -1990, "max_delta": 0,   "min_delta": -220 },
+        { "i": 3, "time": null, "absorption": "above", "price_action": "above", "cvd_price_action": "above", "volume": 3040, "delta": 944,   "max_delta": 115, "min_delta": -99 },
+        { "i": 4, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": null,    "volume": 2160, "delta": -2158, "max_delta": 0,   "min_delta": -201 },
+        { "i": 5, "time": null, "absorption": "above", "price_action": "above", "cvd_price_action": null,    "volume": 1690, "delta": 300,   "max_delta": 140, "min_delta": -99 },
+        { "i": 6, "time": null, "absorption": "below", "price_action": "below", "cvd_price_action": null,    "volume": 1520, "delta": -1264, "max_delta": 0,   "min_delta": -189 },
+        { "i": 7, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": "below", "volume": 2260, "delta": -597,  "max_delta": 183, "min_delta": -129 }
+      ]
+    },
+    {
+      "record_id": 16,
+      "scenario": "touch_and_reject_up",
+      "trend": "down",
+      "win_trade_direction": "buy",
+      "cvd_divergence": true,
+      "candles": [
+        { "i": 1, "time": null, "absorption": "above", "price_action": "above", "cvd_price_action": null,    "volume": 1530, "delta": -908,  "max_delta": 67,  "min_delta": -200 },
+        { "i": 2, "time": null, "absorption": "below", "price_action": null,    "cvd_price_action": null,    "volume": 1980, "delta": 1195,  "max_delta": 454, "min_delta": -9 },
+        { "i": 3, "time": null, "absorption": "above", "price_action": null,    "cvd_price_action": "above", "volume": 2190, "delta": -1226, "max_delta": 48,  "min_delta": -200 },
+        { "i": 4, "time": null, "absorption": "below", "price_action": "below", "cvd_price_action": "below", "volume": 1960, "delta": 532,   "max_delta": 389, "min_delta": -89 },
+        { "i": 5, "time": null, "absorption": "above", "price_action": "above", "cvd_price_action": null,    "volume": 1660, "delta": 1067,  "max_delta": 216, "min_delta": -16 }
+      ]
+    }
+  ]
+}
