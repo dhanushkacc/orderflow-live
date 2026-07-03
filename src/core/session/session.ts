@@ -15,8 +15,10 @@ import { scoreSetup, DEFAULT_SCORE_CONFIG, type ScoreConfig } from '../scoring/s
 import { describeCandle, describeScoreChange, type CommentaryEvent } from '../scoring/commentary'
 
 export interface ArmParams {
-  level: number
-  /** price side decides geometry: price above level => support, below => resistance */
+  /** key zone edges (any order — normalized internally) */
+  zoneA: number
+  zoneB: number
+  /** price side decides geometry: price above zone => support, below => resistance */
   currentPrice: number
   trend: Direction
   isRetest: boolean
@@ -29,7 +31,8 @@ export interface SessionUpdate {
 }
 
 export class AnalysisSession {
-  readonly level: number
+  readonly zoneHigh: number
+  readonly zoneLow: number
   readonly levelKind: LevelKind
   readonly attack: Direction
   readonly trend: Direction
@@ -43,8 +46,18 @@ export class AnalysisSession {
   private lastSnapshot: ScoreSnapshot | null = null
 
   constructor(params: ArmParams, metricsCfg = DEFAULT_METRICS_CONFIG, scoreCfg = DEFAULT_SCORE_CONFIG) {
-    this.level = params.level
-    this.levelKind = params.currentPrice >= params.level ? 'support' : 'resistance'
+    this.zoneHigh = Math.max(params.zoneA, params.zoneB)
+    this.zoneLow = Math.min(params.zoneA, params.zoneB)
+    const mid = (this.zoneHigh + this.zoneLow) / 2
+    // above the zone -> it acts as support; below -> resistance; inside -> nearest half decides
+    this.levelKind =
+      params.currentPrice >= this.zoneHigh
+        ? 'support'
+        : params.currentPrice <= this.zoneLow
+          ? 'resistance'
+          : params.currentPrice >= mid
+            ? 'support'
+            : 'resistance'
     this.attack = this.levelKind === 'support' ? 'down' : 'up'
     this.trend = params.trend
     this.isRetest = params.isRetest

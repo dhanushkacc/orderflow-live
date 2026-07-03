@@ -131,7 +131,8 @@ export function arm(params: ArmParams): void {
   session = new AnalysisSession(params)
   useSessionStore.setState({
     phase: 'armed',
-    level: session.level,
+    zoneHigh: session.zoneHigh,
+    zoneLow: session.zoneLow,
     levelKind: session.levelKind,
     attack: session.attack,
     trend: session.trend,
@@ -143,7 +144,7 @@ export function arm(params: ArmParams): void {
       {
         ts: Date.now(),
         kind: 'signal',
-        text: `armed ${session.levelKind} at ${session.level} — attack ${session.attack}, trend ${session.trend}${session.isRetest ? ' (retest: reduced confidence)' : ''}`,
+        text: `armed ${session.levelKind} zone ${session.zoneLow}–${session.zoneHigh} — attack ${session.attack}, trend ${session.trend}${session.isRetest ? ' (retest: reduced confidence)' : ''}`,
       },
     ],
   })

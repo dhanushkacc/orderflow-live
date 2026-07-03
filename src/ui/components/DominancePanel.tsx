@@ -15,7 +15,8 @@ const PASSIVE_LABEL: Record<string, { text: string; cls: string }> = {
 
 export default function DominancePanel() {
   const dominance = useMarketStore((s) => s.dominance)
-  const level = useSessionStore((s) => s.level)
+  const zoneHigh = useSessionStore((s) => s.zoneHigh)
+  const zoneLow = useSessionStore((s) => s.zoneLow)
 
   if (!dominance) {
     return (
@@ -62,9 +63,13 @@ export default function DominancePanel() {
                 <span className="text-neutral-300">{fmtNum(w.price, 2)}</span>
                 <span className="text-neutral-500">qty {fmtNum(w.qty, 1)}</span>
                 <span className="text-neutral-600">x{w.strength.toFixed(1)}</span>
-                {level != null && (
+                {zoneHigh != null && zoneLow != null && (
                   <span className="text-neutral-600 ml-auto">
-                    {fmtSigned(w.price - level, 1)} from level
+                    {w.price > zoneHigh
+                      ? `${fmtSigned(w.price - zoneHigh, 1)} above zone`
+                      : w.price < zoneLow
+                        ? `${fmtSigned(w.price - zoneLow, 1)} below zone`
+                        : 'inside zone'}
                   </span>
                 )}
               </div>

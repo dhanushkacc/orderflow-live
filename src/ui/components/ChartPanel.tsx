@@ -27,14 +27,17 @@ export default function ChartPanel() {
   const chartRef = useRef<IChartApi | null>(null)
   const candleSeriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null)
   const cvdSeriesRef = useRef<ISeriesApi<'Line'> | null>(null)
-  const levelLineRef = useRef<IPriceLine | null>(null)
+  const zoneLinesRef = useRef<IPriceLine[]>([])
 
   const warmup = useMarketStore((s) => s.warmup)
   const candles1m = useMarketStore((s) => s.candles1m)
   const forming = useMarketStore((s) => s.forming)
   const timeframe = useMarketStore((s) => s.timeframe)
-  const level = useSessionStore((s) => s.level)
+  const zoneHigh = useSessionStore((s) => s.zoneHigh)
+  const zoneLow = useSessionStore((s) => s.zoneLow)
   const phase = useSessionStore((s) => s.phase)
+  const draftHigh = useDraftStore((s) => s.high)
+  const draftLow = useDraftStore((s) => s.low)
 
   const tfMs = TIMEFRAME_MS[timeframe]
   const liveTf = useMemo(() => {
@@ -70,7 +73,7 @@ export default function ChartPanel() {
     chart.subscribeClick((param) => {
       if (!param.point) return
       const price = candleSeries.coordinateToPrice(param.point.y)
-      if (price != null) useDraftStore.getState().setLevel(price.toFixed(2))
+      if (price != null) useDraftStore.getState().clickPrice(price)
     })
 
     chartRef.current = chart
@@ -81,7 +84,7 @@ export default function ChartPanel() {
       chartRef.current = null
       candleSeriesRef.current = null
       cvdSeriesRef.current = null
-      levelLineRef.current = null
+      zoneLinesRef.current = []
     }
   }, [])
 
@@ -117,21 +120,38 @@ export default function ChartPanel() {
   useEffect(() => {
     const series = candleSeriesRef.current
     if (!series) return
-    if (levelLineRef.current) {
-      series.removePriceLine(levelLineRef.current)
-      levelLineRef.current = null
+    for (const line of zoneLinesRef.current) series.removePriceLine(line)
+    zoneLinesRef.current = []
+
+    // armed zone: solid edges; draft zone (while picking): faint dashed edges
+    const armed = zoneHigh != null && zoneLow != null
+    const dHigh = Number(draftHigh)
+    const dLow = Number(draftLow)
+    const edges: Array<{ price: number; color: string; style: LineStyle; title: string }> = []
+    if (armed) {
+      edges.push(
+        { price: zoneHigh, color: '#eab308', style: LineStyle.Solid, title: 'zone high' },
+        { price: zoneLow, color: '#eab308', style: LineStyle.Solid, title: 'zone low' },
+      )
+    } else {
+      if (draftHigh !== '' && Number.isFinite(dHigh))
+        edges.push({ price: dHigh, color: '#94a3b8', style: LineStyle.Dashed, title: 'draft high' })
+      if (draftLow !== '' && Number.isFinite(dLow))
+        edges.push({ price: dLow, color: '#94a3b8', style: LineStyle.Dashed, title: 'draft low' })
     }
-    if (level != null) {
-      levelLineRef.current = series.createPriceLine({
-        price: level,
-        color: '#eab308',
-        lineWidth: 2,
-        lineStyle: LineStyle.Dashed,
-        axisLabelVisible: true,
-        title: 'key level',
-      })
+    for (const e of edges) {
+      zoneLinesRef.current.push(
+        series.createPriceLine({
+          price: e.price,
+          color: e.color,
+          lineWidth: 2,
+          lineStyle: e.style,
+          axisLabelVisible: true,
+          title: e.title,
+        }),
+      )
     }
-  }, [level, phase])
+  }, [zoneHigh, zoneLow, draftHigh, draftLow, phase])
 
   const strip = liveTf.slice(-9)
 

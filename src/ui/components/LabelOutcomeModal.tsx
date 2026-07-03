@@ -63,7 +63,7 @@ function ModalBody() {
         <div className="flex items-baseline justify-between">
           <h2 className="text-lg font-semibold text-neutral-100">Label the outcome</h2>
           <span className="text-xs text-neutral-500">
-            {metrics.length} candle{metrics.length === 1 ? '' : 's'} · {levelKind} @ {fmtNum(session.level, 2)}
+            {metrics.length} candle{metrics.length === 1 ? '' : 's'} · {levelKind} zone {fmtNum(session.zoneLow, 2)}–{fmtNum(session.zoneHigh, 2)}
           </span>
         </div>
 

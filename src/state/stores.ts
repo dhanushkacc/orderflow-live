@@ -47,7 +47,8 @@ export const useMarketStore = create<MarketState>((set) => ({
 
 export interface SessionView {
   phase: 'idle' | 'armed' | 'labeling'
-  level: number | null
+  zoneHigh: number | null
+  zoneLow: number | null
   levelKind: 'support' | 'resistance' | null
   attack: Direction | null
   trend: Direction | null
@@ -64,7 +65,8 @@ interface SessionState extends SessionView {
 
 const idleSession: SessionView = {
   phase: 'idle',
-  level: null,
+  zoneHigh: null,
+  zoneLow: null,
   levelKind: null,
   attack: null,
   trend: null,
@@ -80,15 +82,31 @@ export const useSessionStore = create<SessionState>((set) => ({
   reset: () => set({ ...idleSession }),
 }))
 
-/** Draft key level being typed / picked by clicking the chart, before arming. */
+/** Draft key zone being typed / picked by clicking the chart twice, before arming. */
 interface DraftState {
-  level: string
-  setLevel: (v: string) => void
+  high: string
+  low: string
+  /** which edge the next chart click fills */
+  nextClick: 'high' | 'low'
+  setHigh: (v: string) => void
+  setLow: (v: string) => void
+  /** chart click: fill edges alternately */
+  clickPrice: (price: number) => void
+  clear: () => void
 }
 
-export const useDraftStore = create<DraftState>((set) => ({
-  level: '',
-  setLevel: (level) => set({ level }),
+export const useDraftStore = create<DraftState>((set, get) => ({
+  high: '',
+  low: '',
+  nextClick: 'high',
+  setHigh: (high) => set({ high }),
+  setLow: (low) => set({ low }),
+  clickPrice: (price) => {
+    const v = price.toFixed(2)
+    if (get().nextClick === 'high') set({ high: v, nextClick: 'low' })
+    else set({ low: v, nextClick: 'high' })
+  },
+  clear: () => set({ high: '', low: '', nextClick: 'high' }),
 }))
 
 interface RecordsState {
