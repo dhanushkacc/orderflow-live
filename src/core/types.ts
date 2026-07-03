@@ -64,15 +64,7 @@ export interface CandleMetrics {
 export type LevelKind = 'support' | 'resistance'
 export type Direction = 'up' | 'down'
 
-export type Scenario =
-  | 'break_up'
-  | 'break_down'
-  | 'break_up_and_retest_success'
-  | 'break_down_and_retest_success'
-  | 'break_up_and_retest_fail'
-  | 'break_down_and_retest_fail'
-  | 'touch_and_reject_up'
-  | 'touch_and_reject_down'
+export type Outcome = 'reject' | 'break'
 
 export interface ScoreInput {
   levelKind: LevelKind
@@ -112,7 +104,9 @@ export interface ScoreSnapshot {
 /** Exact dataset.json record shape — must round-trip byte-compatibly. */
 export interface SessionRecord {
   record_id: number
-  scenario: Scenario
+  level_kind: LevelKind
+  outcome: Outcome
+  retest: boolean
   trend: Direction
   win_trade_direction: 'buy' | 'sell'
   cvd_divergence: boolean

@@ -9,7 +9,6 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Dataset } from '../types'
 import { scoreSetup, metricsFromRecordCandle } from './score'
-import { scenarioGeometry } from './scenario'
 
 const dataset = JSON.parse(
   readFileSync(join(__dirname, '..', '..', 'test', 'fixtures', 'dataset.json'), 'utf8'),
@@ -36,15 +35,15 @@ const EXPECTED: Record<number, { rj: number; bk: number; verdict: 'REJECT' | 'BR
 
 describe('v3 scoring engine — dataset replay acceptance', () => {
   const results = dataset.records.map((rec) => {
-    const geo = scenarioGeometry(rec.scenario)
+    const outcome = rec.outcome === 'reject' ? 'REJECT' : 'BREAK'
     const snap = scoreSetup({
-      levelKind: geo.levelKind,
-      attack: geo.attack,
+      levelKind: rec.level_kind,
+      attack: rec.level_kind === 'support' ? 'down' : 'up',
       trend: rec.trend,
       cvdDivergence: rec.cvd_divergence,
       candles: rec.candles.map(metricsFromRecordCandle),
     })
-    return { rec, geo, snap }
+    return { rec, outcome, snap }
   })
 
   it('reproduces the exact per-record RJ/BK totals and verdicts', () => {
@@ -63,9 +62,9 @@ describe('v3 scoring engine — dataset replay acceptance', () => {
     let hits = 0
     const misses: number[] = []
     const ties: number[] = []
-    for (const { rec, geo, snap } of results) {
+    for (const { rec, outcome, snap } of results) {
       if (snap.verdict === 'TIE') ties.push(rec.record_id)
-      else if (snap.verdict === geo.outcome) hits++
+      else if (snap.verdict === outcome) hits++
       else misses.push(rec.record_id)
     }
     expect(hits).toBe(13)

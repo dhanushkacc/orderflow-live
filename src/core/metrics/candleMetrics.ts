@@ -47,12 +47,21 @@ export function priceActionZone(open: number, high: number, low: number, close: 
   return upper > lower ? 'above' : 'below'
 }
 
+/** Candle stamp in Sri Lanka time (Asia/Colombo), matching the dataset's HH:MM convention. */
+export function candleTimeLabel(ts: number): string {
+  return new Date(ts).toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Asia/Colombo',
+  })
+}
+
 export function toCandleMetrics(
   c: FootprintCandle,
   cfg: MetricsConfig = DEFAULT_METRICS_CONFIG,
 ): CandleMetrics {
   return {
-    time: new Date(c.ts).toISOString(),
+    time: candleTimeLabel(c.ts),
     absorption: absorptionSide(c),
     price_action: priceActionZone(c.open, c.high, c.low, c.close, cfg),
     cvd_price_action: priceActionZone(c.cvdOpen, c.cvdHigh, c.cvdLow, c.cvdClose, cfg),

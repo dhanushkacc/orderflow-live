@@ -1,35 +1,34 @@
 /**
- * Maps dataset scenario labels to the level geometry the scoring engine needs,
- * and to the ground-truth outcome used by the acceptance replay test.
- * Retests attack the flipped level: after a break-down the retest attacks from
- * BELOW (resistance-style); after a break-up from ABOVE (support-style).
+ * Legacy-scenario migration: old dataset files labelled records with an
+ * 8-value scenario string. The current schema stores level_kind + outcome +
+ * retest directly; this mapping upgrades old records on import.
  */
-import type { Direction, LevelKind, Scenario } from '../types'
+import type { LevelKind, Outcome, SessionRecord } from '../types'
 
-export interface SetupGeometry {
-  levelKind: LevelKind
-  attack: Direction
-  outcome: 'REJECT' | 'BREAK'
-  isRetest: boolean
+interface LegacyGeometry {
+  level_kind: LevelKind
+  outcome: Outcome
+  retest: boolean
 }
 
-export function scenarioGeometry(scenario: Scenario): SetupGeometry {
-  switch (scenario) {
-    case 'touch_and_reject_up':
-      return { levelKind: 'support', attack: 'down', outcome: 'REJECT', isRetest: false }
-    case 'touch_and_reject_down':
-      return { levelKind: 'resistance', attack: 'up', outcome: 'REJECT', isRetest: false }
-    case 'break_down':
-      return { levelKind: 'support', attack: 'down', outcome: 'BREAK', isRetest: false }
-    case 'break_up':
-      return { levelKind: 'resistance', attack: 'up', outcome: 'BREAK', isRetest: false }
-    case 'break_up_and_retest_success':
-      return { levelKind: 'support', attack: 'down', outcome: 'REJECT', isRetest: true }
-    case 'break_up_and_retest_fail':
-      return { levelKind: 'support', attack: 'down', outcome: 'BREAK', isRetest: true }
-    case 'break_down_and_retest_success':
-      return { levelKind: 'resistance', attack: 'up', outcome: 'REJECT', isRetest: true }
-    case 'break_down_and_retest_fail':
-      return { levelKind: 'resistance', attack: 'up', outcome: 'BREAK', isRetest: true }
+const LEGACY_SCENARIOS: Record<string, LegacyGeometry> = {
+  touch_and_reject_up: { level_kind: 'support', outcome: 'reject', retest: false },
+  touch_and_reject_down: { level_kind: 'resistance', outcome: 'reject', retest: false },
+  break_down: { level_kind: 'support', outcome: 'break', retest: false },
+  break_up: { level_kind: 'resistance', outcome: 'break', retest: false },
+  break_up_and_retest_success: { level_kind: 'support', outcome: 'reject', retest: true },
+  break_up_and_retest_fail: { level_kind: 'support', outcome: 'break', retest: true },
+  break_down_and_retest_success: { level_kind: 'resistance', outcome: 'reject', retest: true },
+  break_down_and_retest_fail: { level_kind: 'resistance', outcome: 'break', retest: true },
+}
+
+/** Upgrade a record that may still carry a legacy `scenario` field. */
+export function migrateLegacyRecord(raw: Record<string, unknown>): SessionRecord {
+  if (typeof raw.scenario === 'string') {
+    const geo = LEGACY_SCENARIOS[raw.scenario]
+    if (!geo) throw new Error(`unknown legacy scenario: ${raw.scenario}`)
+    const { scenario: _dropped, ...rest } = raw
+    return { ...rest, ...geo } as unknown as SessionRecord
   }
+  return raw as unknown as SessionRecord
 }

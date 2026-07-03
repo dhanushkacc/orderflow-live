@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useSessionStore, useRecordsStore } from '../../state/stores'
 import { activeSession, disarm } from '../../state/controller'
-import { buildRecord, impliedDirection, scenariosForLevel } from '../../core/session/record'
+import { buildRecord, impliedDirection } from '../../core/session/record'
 import { appendRecord, nextRecordId } from '../../storage/dataset'
-import type { CandleMetrics, Direction, Scenario, Zone } from '../../core/types'
+import type { CandleMetrics, Direction, Outcome, Zone } from '../../core/types'
 import { fmtNum, fmtSigned } from '../format'
 
 const ZONES: Array<Zone> = ['above', 'below', null]
@@ -22,9 +22,8 @@ function ModalBody() {
   const cvdSeen = useSessionStore((s) => s.cvdDivergence)
   const setCount = useRecordsStore((s) => s.setCount)
 
-  const scenarios = useMemo(() => scenariosForLevel(levelKind), [levelKind])
-  const [scenario, setScenario] = useState<Scenario>(scenarios[0])
-  const [direction, setDirection] = useState<'buy' | 'sell'>(impliedDirection(scenarios[0]))
+  const [outcome, setOutcome] = useState<Outcome | null>(null)
+  const [retest, setRetest] = useState<boolean>(useSessionStore.getState().isRetest)
   const [trend, setTrend] = useState<Direction>(trendArmed)
   const [cvdDiv, setCvdDiv] = useState<boolean>(cvdSeen)
   const [metrics, setMetrics] = useState<CandleMetrics[]>(() => session?.candleMetrics.map((m) => ({ ...m })) ?? [])
@@ -34,21 +33,18 @@ function ModalBody() {
     return null
   }
 
-  const pickScenario = (s: Scenario) => {
-    setScenario(s)
-    setDirection(impliedDirection(s))
-  }
-
   const patchCandle = (i: number, patch: Partial<CandleMetrics>) => {
     setMetrics((ms) => ms.map((m, k) => (k === i ? { ...m, ...patch } : m)))
   }
 
   const saveRecord = () => {
+    if (!outcome) return
     const record = buildRecord({
       recordId: nextRecordId(),
-      scenario,
+      levelKind,
+      outcome,
+      retest,
       trend,
-      winTradeDirection: direction,
       cvdDivergence: cvdDiv,
       metrics,
     })
@@ -67,54 +63,72 @@ function ModalBody() {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <label className="space-y-1">
-            <span className="text-xs text-neutral-500">scenario (what actually happened)</span>
-            <select
-              value={scenario}
-              onChange={(e) => pickScenario(e.target.value as Scenario)}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
-            >
-              {scenarios.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="space-y-1">
-            <span className="text-xs text-neutral-500">winning move direction</span>
-            <select
-              value={direction}
-              onChange={(e) => setDirection(e.target.value as 'buy' | 'sell')}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
-            >
-              <option value="buy">buy (price went up)</option>
-              <option value="sell">sell (price went down)</option>
-            </select>
-          </label>
-          <label className="space-y-1">
-            <span className="text-xs text-neutral-500">trend</span>
-            <select
-              value={trend}
-              onChange={(e) => setTrend(e.target.value as Direction)}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
-            >
-              <option value="up">up</option>
-              <option value="down">down</option>
-            </select>
-          </label>
-          <label className="space-y-1">
-            <span className="text-xs text-neutral-500">CVD divergence (auto-detected: {String(cvdSeen)})</span>
-            <select
-              value={String(cvdDiv)}
-              onChange={(e) => setCvdDiv(e.target.value === 'true')}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
-            >
-              <option value="true">true</option>
-              <option value="false">false</option>
-            </select>
-          </label>
+        <div className="space-y-3">
+          <div>
+            <div className="text-xs text-neutral-500 mb-1.5">what actually happened at the {levelKind} zone?</div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => setOutcome('reject')}
+                className={`py-3 rounded-lg border text-lg font-semibold ${
+                  outcome === 'reject'
+                    ? 'border-green-600 bg-green-950/40 text-green-400'
+                    : 'border-neutral-700 text-neutral-400 hover:bg-neutral-900'
+                }`}
+              >
+                REJECT — level held
+              </button>
+              <button
+                onClick={() => setOutcome('break')}
+                className={`py-3 rounded-lg border text-lg font-semibold ${
+                  outcome === 'break'
+                    ? 'border-red-600 bg-red-950/40 text-red-400'
+                    : 'border-neutral-700 text-neutral-400 hover:bg-neutral-900'
+                }`}
+              >
+                BREAK — level failed
+              </button>
+            </div>
+            {outcome && (
+              <div className="text-xs text-neutral-500 mt-1.5">
+                → winning move: <span className="text-neutral-300 font-mono">{impliedDirection(levelKind, outcome)}</span>
+              </div>
+            )}
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-sm">
+            <label className="space-y-1">
+              <span className="text-xs text-neutral-500">trend</span>
+              <select
+                value={trend}
+                onChange={(e) => setTrend(e.target.value as Direction)}
+                className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
+              >
+                <option value="up">up</option>
+                <option value="down">down</option>
+              </select>
+            </label>
+            <label className="space-y-1">
+              <span className="text-xs text-neutral-500">retest of a broken level?</span>
+              <select
+                value={String(retest)}
+                onChange={(e) => setRetest(e.target.value === 'true')}
+                className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
+              >
+                <option value="false">no — first touch</option>
+                <option value="true">yes — retest</option>
+              </select>
+            </label>
+            <label className="space-y-1">
+              <span className="text-xs text-neutral-500">CVD divergence (auto: {String(cvdSeen)})</span>
+              <select
+                value={String(cvdDiv)}
+                onChange={(e) => setCvdDiv(e.target.value === 'true')}
+                className="w-full bg-neutral-900 border border-neutral-700 rounded px-2 py-1.5 text-neutral-200"
+              >
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </label>
+          </div>
         </div>
 
         <div>
@@ -181,7 +195,7 @@ function ModalBody() {
             Discard
           </button>
           <button
-            disabled={metrics.length === 0}
+            disabled={metrics.length === 0 || outcome === null}
             onClick={saveRecord}
             className="px-4 py-1.5 rounded font-semibold border border-green-700 text-green-400 hover:bg-green-950/40 disabled:opacity-40"
           >

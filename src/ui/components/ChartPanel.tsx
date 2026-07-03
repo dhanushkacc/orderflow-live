@@ -12,7 +12,10 @@ import {
 import { useMarketStore, useSessionStore, useDraftStore } from '../../state/stores'
 import { aggregateSeries } from '../../core/candles/aggregate'
 import { TIMEFRAME_MS } from '../../core/types'
-import { fmtNum, fmtSigned } from '../format'
+import { fmtNum, fmtSigned, APP_TZ_OFFSET_SEC } from '../format'
+
+/** lightweight-charts renders UTC — shift stamps so the axis reads Sri Lanka time */
+const tzTime = (tsMs: number) => ((tsMs / 1000 + APP_TZ_OFFSET_SEC) as UTCTimestamp)
 
 interface Bar {
   time: UTCTimestamp
@@ -95,7 +98,7 @@ export default function ChartPanel() {
     const byTime = new Map<number, Bar>()
     for (const k of warmup) {
       byTime.set(k.openTime, {
-        time: (k.openTime / 1000) as UTCTimestamp,
+        time: tzTime(k.openTime),
         open: k.open,
         high: k.high,
         low: k.low,
@@ -104,7 +107,7 @@ export default function ChartPanel() {
     }
     for (const c of liveTf) {
       byTime.set(c.ts, {
-        time: (c.ts / 1000) as UTCTimestamp,
+        time: tzTime(c.ts),
         open: c.open,
         high: c.high,
         low: c.low,
@@ -113,7 +116,7 @@ export default function ChartPanel() {
     }
     series.setData([...byTime.values()].sort((a, b) => (a.time as number) - (b.time as number)))
     cvd.setData(
-      liveTf.map((c) => ({ time: (c.ts / 1000) as UTCTimestamp, value: c.cvdClose })),
+      liveTf.map((c) => ({ time: tzTime(c.ts), value: c.cvdClose })),
     )
   }, [warmup, liveTf])
 

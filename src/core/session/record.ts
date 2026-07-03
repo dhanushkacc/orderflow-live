@@ -1,46 +1,33 @@
 /**
  * Assembles a dataset.json-shaped SessionRecord from an analysis session's
- * candle metrics plus the user's outcome labels.
+ * candle metrics plus the user's outcome label (reject | break).
  */
-import type { CandleMetrics, Direction, Scenario, SessionRecord } from '../types'
+import type { CandleMetrics, Direction, LevelKind, Outcome, SessionRecord } from '../types'
 
 const r2 = (x: number): number => Math.round(x * 100) / 100
 
-/** Default winning-move direction implied by each scenario (editable in the modal). */
-export function impliedDirection(scenario: Scenario): 'buy' | 'sell' {
-  switch (scenario) {
-    case 'touch_and_reject_up':
-    case 'break_up':
-    case 'break_up_and_retest_success':
-    case 'break_down_and_retest_fail':
-      return 'buy'
-    case 'touch_and_reject_down':
-    case 'break_down':
-    case 'break_up_and_retest_fail':
-    case 'break_down_and_retest_success':
-      return 'sell'
-  }
-}
-
-export function scenariosForLevel(levelKind: 'support' | 'resistance'): Scenario[] {
-  return levelKind === 'support'
-    ? ['touch_and_reject_up', 'break_down', 'break_up_and_retest_success', 'break_up_and_retest_fail']
-    : ['touch_and_reject_down', 'break_up', 'break_down_and_retest_success', 'break_down_and_retest_fail']
+/** Winning-move direction is fully determined by geometry + outcome. */
+export function impliedDirection(levelKind: LevelKind, outcome: Outcome): 'buy' | 'sell' {
+  if (levelKind === 'support') return outcome === 'reject' ? 'buy' : 'sell'
+  return outcome === 'reject' ? 'sell' : 'buy'
 }
 
 export function buildRecord(params: {
   recordId: number
-  scenario: Scenario
+  levelKind: LevelKind
+  outcome: Outcome
+  retest: boolean
   trend: Direction
-  winTradeDirection: 'buy' | 'sell'
   cvdDivergence: boolean
   metrics: CandleMetrics[]
 }): SessionRecord {
   return {
     record_id: params.recordId,
-    scenario: params.scenario,
+    level_kind: params.levelKind,
+    outcome: params.outcome,
+    retest: params.retest,
     trend: params.trend,
-    win_trade_direction: params.winTradeDirection,
+    win_trade_direction: impliedDirection(params.levelKind, params.outcome),
     cvd_divergence: params.cvdDivergence,
     candles: params.metrics.map((m, i) => ({
       i: i + 1,

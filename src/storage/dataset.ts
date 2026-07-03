@@ -4,16 +4,24 @@
  * preserved so the Python tooling keeps working).
  */
 import type { Dataset, SessionRecord } from '../core/types'
+import { migrateLegacyRecord } from '../core/scoring/scenario'
 import seed from '../test/fixtures/dataset.json'
 
-const KEY = 'orderflow-live:dataset:v1'
+const KEY = 'orderflow-live:dataset:v2'
 
 const SEED = seed as unknown as Dataset
 
+function upgrade(ds: Dataset): Dataset {
+  return {
+    schema: SEED.schema,
+    records: ds.records.map((r) => migrateLegacyRecord(r as unknown as Record<string, unknown>)),
+  }
+}
+
 function load(): Dataset {
   try {
-    const raw = localStorage.getItem(KEY)
-    if (raw) return JSON.parse(raw) as Dataset
+    const raw = localStorage.getItem(KEY) ?? localStorage.getItem('orderflow-live:dataset:v1')
+    if (raw) return upgrade(JSON.parse(raw) as Dataset)
   } catch {
     /* corrupted -> reseed */
   }
@@ -47,7 +55,8 @@ export function appendRecord(record: SessionRecord): Dataset {
 export function importDataset(json: string): Dataset {
   const parsed = JSON.parse(json) as Dataset
   if (!Array.isArray(parsed.records)) throw new Error('invalid dataset: missing records[]')
-  const ds: Dataset = { schema: parsed.schema ?? SEED.schema, records: parsed.records }
+  // legacy scenario-labelled files are upgraded automatically
+  const ds = upgrade({ schema: parsed.schema ?? SEED.schema, records: parsed.records })
   save(ds)
   return ds
 }
